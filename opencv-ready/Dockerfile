@@ -30,7 +30,9 @@ ENV RUNTIME_DEPS="bash \
                   clang \
                   linux-headers \
                   git \
-                  curl"
+                  curl \
+                  libcrypto1.0 \
+                  libssl1.0"
 
 ENV BUILD_DEPS="fdk-aac-dev \
                 freetype-dev \
