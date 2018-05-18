@@ -1,38 +1,39 @@
-FROM alpine:3.7
+FROM golang:1.10-alpine3.7
 
 LABEL maintainer="Denis Makogon. mail: lildee1991@gmail.com"
 
 ENV FFMPEG_VERSION=4.0
 
-ENV RUNTIME_DEPS="bash \
-                  tzdata \
-                  libass \
-                  libstdc++ \
-                  libpng \
-                  libjpeg \
-                  xvidcore \
-                  x264-libs \
-                  x265 \
-                  libvpx \
-                  libvorbis \
-                  opus \
-                  lame \
-                  fdk-aac \
-                  freetype\
-                  coreutils \
-                  yasm \
+ENV FFMPEG_CORE="bash \
+                 tzdata \
+                 libass \
+                 libstdc++ \
+                 libpng \
+                 libjpeg \
+                 xvidcore \
+                 x264-libs \
+                 x265 \
+                 libvpx \
+                 libvorbis \
+                 opus \
+                 lame \
+                 fdk-aac \
+                 freetype \
+                 libcrypto1.0 \
+                 libssl1.0 \
+                 jasper-libs \
+                 libavc1394 \
+                 yasm"
+
+ENV RUNTIME_DEPS="coreutils \
                   make \
                   cmake \
                   gcc \
                   g++ \
-                  jasper-libs \
-                  libavc1394 \
                   clang \
                   linux-headers \
                   git \
-                  curl \
-                  libcrypto1.0 \
-                  libssl1.0"
+                  curl"
 
 ENV BUILD_DEPS="fdk-aac-dev \
                 freetype-dev \
@@ -61,7 +62,8 @@ RUN apk update && \
     apk add --no-cache apk-tools && \
     echo http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories && \
     apk update && \
-    apk add --no-cache ${RUNTIME_DEPS} && \
+    apk add --no-cache --virtual .runtime-deps ${RUNTIME_DEPS} && \
+    apk add --no-cache ${FFMPEG_CORE} && \
     apk add --no-cache --virtual .build-deps ${BUILD_DEPS} && \
     export SRC=/usr \
 	DIR=$(mktemp -d) && cd ${DIR} && \
@@ -102,4 +104,5 @@ RUN apk update && \
 	cd /tmp && \
 	rm -rf ${DIR} && \
 	apk del .build-deps && \
+	apk del .runtime-deps && \
     rm -rf /var/cache/apk/*
