@@ -1,8 +1,8 @@
-FROM golang:1.11-alpine3.7
+FROM golang:1.12-alpine3.9
 
 LABEL maintainer="Denis Makogon. mail: lildee1991@gmail.com"
 
-ENV FFMPEG_VERSION=4.0
+ENV FFMPEG_VERSION=4.1.1
 
 ENV FFMPEG_CORE="bash \
                  tzdata \
@@ -19,8 +19,7 @@ ENV FFMPEG_CORE="bash \
                  lame \
                  fdk-aac \
                  freetype \
-                 libcrypto1.0 \
-                 libssl1.0 \
+                 libressl \
                  jasper-libs \
                  libavc1394 \
                  yasm"
@@ -47,7 +46,7 @@ ENV BUILD_DEPS="fdk-aac-dev \
                 lame-dev \
                 xvidcore-dev \
                 libass-dev \
-                openssl-dev \
+                libressl-dev \
                 musl-dev \
                 build-base \
                 libjpeg-turbo-dev \
@@ -88,7 +87,7 @@ RUN apk update && \
         --enable-libfdk-aac \
         --disable-debug \
         --enable-small \
-        --enable-openssl \
+        --enable-libtls \
         --enable-libx265 \
         --enable-libopus \
         --enable-libvorbis \
