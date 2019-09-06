@@ -1,4 +1,4 @@
-FROM golang:1.12-alpine3.9
+FROM golang:1.13-alpine3.10
 
 LABEL maintainer="Denis Makogon. mail: lildee1991@gmail.com"
 
