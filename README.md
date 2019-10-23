@@ -31,7 +31,7 @@ Image size: 69.5MB at minimum
 
 In order to get all necessary ffmpeg pieces you need to create a Dockerfile with the following instructions:
 ```dockerfile
-FROM denismakogon/ffmpeg-alpine:4.0-runtime as build-stage
+FROM denismakogon/ffmpeg-alpine:4.0-buildstage as build-stage
 FROM <your-final-stage-image>
 
 COPY --from=build-stage /tmp/fakeroot/bin /usr/local/bin
