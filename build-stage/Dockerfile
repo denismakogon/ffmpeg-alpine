@@ -55,6 +55,7 @@ RUN  \
         --enable-libass \
         --enable-libfreetype \
         --enable-libvidstab \
+        --enable-libmfx \
         --enable-libmp3lame \
         --enable-libopenjpeg \
         --enable-libopus \
@@ -71,6 +72,7 @@ RUN  \
         --enable-libaom --extra-libs=-lpthread \
         --enable-postproc \
         --enable-small \
+        --enable-vaapi \
         --enable-version3 \
         --extra-cflags="-I${PREFIX}/include" \
         --extra-ldflags="-L${PREFIX}/lib" \
